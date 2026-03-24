@@ -1,7 +1,5 @@
 """Unit tests for MaturityCalculator."""
 
-import pytest
-
 from socrates_maturity import MaturityCalculator
 
 

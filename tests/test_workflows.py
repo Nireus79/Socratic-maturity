@@ -1,12 +1,10 @@
 """Tests for maturity workflows."""
 
-import pytest
-
 from socrates_maturity import (
+    LearningVelocityWorkflow,
+    MaturityTransitionWorkflow,
     PhaseProgressionWorkflow,
     SkillRecommendationWorkflow,
-    MaturityTransitionWorkflow,
-    LearningVelocityWorkflow,
 )
 
 

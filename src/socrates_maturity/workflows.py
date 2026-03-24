@@ -6,10 +6,10 @@ All workflows are deterministic and side-effect-free.
 """
 
 from dataclasses import dataclass, field
-from typing import Dict, List, Optional
 from enum import Enum
+from typing import Any, Dict, List, Optional
 
-from socrates_maturity.calculator import MaturityCalculator, PHASES
+from socrates_maturity.calculator import PHASES, MaturityCalculator
 
 
 class WorkflowType(Enum):
@@ -31,7 +31,7 @@ class WorkflowState:
     completion_percent: int
     transitions: List[str] = field(default_factory=list)
     recommendations: List[str] = field(default_factory=list)
-    metadata: Dict[str, any] = field(default_factory=dict)
+    metadata: Dict[str, Any] = field(default_factory=dict)
 
 
 class PhaseProgressionWorkflow:
@@ -249,7 +249,7 @@ class MaturityTransitionWorkflow:
 
         # Can only move forward by one phase at a time
         if target_index > current_index + 1:
-            return False, f"Can only advance one phase at a time"
+            return False, "Can only advance one phase at a time"
 
         # Must be 85%+ through current phase to advance
         if target_index == current_index + 1 and completion < 85:
