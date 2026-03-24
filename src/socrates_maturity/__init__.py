@@ -39,12 +39,26 @@ Example:
 
 from socrates_maturity.calculator import MaturityCalculator
 from socrates_maturity.models import CategoryScore, MaturityEvent, PhaseMaturity
+from socrates_maturity.workflows import (
+    PhaseProgressionWorkflow,
+    SkillRecommendationWorkflow,
+    MaturityTransitionWorkflow,
+    LearningVelocityWorkflow,
+    WorkflowType,
+    WorkflowState,
+)
 
-__version__ = "1.0.0"
+__version__ = "0.1.0"
 
 __all__ = [
     "MaturityCalculator",
     "CategoryScore",
     "PhaseMaturity",
     "MaturityEvent",
+    "PhaseProgressionWorkflow",
+    "SkillRecommendationWorkflow",
+    "MaturityTransitionWorkflow",
+    "LearningVelocityWorkflow",
+    "WorkflowType",
+    "WorkflowState",
 ]
