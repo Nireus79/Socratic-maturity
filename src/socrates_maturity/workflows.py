@@ -40,7 +40,7 @@ class PhaseProgressionWorkflow:
     @staticmethod
     def calculate_phase_progression(
         phase_scores: Dict[str, float],
-    ) -> Dict[str, any]:
+    ) -> Dict[str, Any]:
         """
         Calculate current phase and progression details.
 
