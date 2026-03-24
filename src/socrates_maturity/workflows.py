@@ -7,7 +7,7 @@ All workflows are deterministic and side-effect-free.
 
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Tuple
 
 from socrates_maturity.calculator import PHASES, MaturityCalculator
 
@@ -218,7 +218,7 @@ class MaturityTransitionWorkflow:
     def can_transition_to_phase(
         phase_scores: Dict[str, float],
         target_phase: str,
-    ) -> tuple[bool, str]:
+    ) -> Tuple[bool, str]:
         """
         Check if user can transition to target phase.
 
@@ -261,7 +261,7 @@ class MaturityTransitionWorkflow:
     def execute_phase_transition(
         phase_scores: Dict[str, float],
         target_phase: str,
-    ) -> tuple[bool, Dict[str, float], str]:
+    ) -> Tuple[bool, Dict[str, float], str]:
         """
         Execute a phase transition if allowed.
 
