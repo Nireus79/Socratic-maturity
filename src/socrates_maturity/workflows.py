@@ -14,6 +14,7 @@ from socrates_maturity.calculator import PHASES, MaturityCalculator
 
 class WorkflowType(Enum):
     """Types of maturity workflows."""
+
     PHASE_PROGRESSION = "phase_progression"
     SKILL_RECOMMENDATION = "skill_recommendation"
     MATURITY_TRANSITION = "maturity_transition"
@@ -23,6 +24,7 @@ class WorkflowType(Enum):
 @dataclass
 class WorkflowState:
     """State of a maturity workflow execution."""
+
     workflow_type: WorkflowType
     phase_scores: Dict[str, float]
     category_scores: Dict[str, float]
@@ -167,9 +169,7 @@ class SkillRecommendationWorkflow:
 
         # Get skills for weak categories in current phase
         recommendations = []
-        phase_skills = SkillRecommendationWorkflow.SKILL_TEMPLATES.get(
-            current_phase, {}
-        )
+        phase_skills = SkillRecommendationWorkflow.SKILL_TEMPLATES.get(current_phase, {})
 
         for category in weak_categories:
             skills = phase_skills.get(category, [])
@@ -193,9 +193,7 @@ class SkillRecommendationWorkflow:
             Sorted recommendations by priority
         """
         # Skills for weakest categories come first
-        sorted_categories = sorted(
-            category_scores.items(), key=lambda x: x[1]
-        )
+        sorted_categories = sorted(category_scores.items(), key=lambda x: x[1])
 
         prioritized = []
         for category, _ in sorted_categories:
@@ -308,8 +306,7 @@ class LearningVelocityWorkflow:
 
         # Calculate overall maturity at each point
         maturities = [
-            MaturityCalculator.calculate_overall_maturity(scores)
-            for scores in phase_scores_history
+            MaturityCalculator.calculate_overall_maturity(scores) for scores in phase_scores_history
         ]
 
         # Calculate average improvement per step
@@ -341,9 +338,7 @@ class LearningVelocityWorkflow:
         Returns:
             Suggestion: "increase", "maintain", or "decrease"
         """
-        velocity = LearningVelocityWorkflow.calculate_learning_velocity(
-            phase_scores_history
-        )
+        velocity = LearningVelocityWorkflow.calculate_learning_velocity(phase_scores_history)
 
         if velocity > 0.7:
             return "increase"  # Fast learner, increase difficulty
@@ -372,17 +367,13 @@ class LearningVelocityWorkflow:
         if len(phase_scores_history) < 7:
             return None  # Need at least a week of history
 
-        velocity = LearningVelocityWorkflow.calculate_learning_velocity(
-            phase_scores_history
-        )
+        velocity = LearningVelocityWorkflow.calculate_learning_velocity(phase_scores_history)
 
         if velocity == 0:
             return None
 
         current_maturity = MaturityCalculator.calculate_overall_maturity(current_scores)
-        target_maturity_min = (
-            PHASES.index(target_phase) * 0.25
-        )  # Min maturity for phase
+        target_maturity_min = PHASES.index(target_phase) * 0.25  # Min maturity for phase
 
         remaining = target_maturity_min - current_maturity
         if remaining <= 0:

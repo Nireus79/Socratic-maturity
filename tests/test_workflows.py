@@ -13,9 +13,7 @@ class TestPhaseProgressionWorkflow:
 
     def test_calculate_progression_discovery(self):
         """User in discovery phase should show correct progression."""
-        progression = PhaseProgressionWorkflow.calculate_phase_progression(
-            {"discovery": 0.1}
-        )
+        progression = PhaseProgressionWorkflow.calculate_phase_progression({"discovery": 0.1})
         assert progression["current_phase"] == "discovery"
         assert progression["overall_maturity"] == 0.1
         assert 30 <= progression["completion_percent"] <= 50
@@ -58,16 +56,12 @@ class TestPhaseProgressionWorkflow:
     def test_ready_for_next_phase(self):
         """Should show ready when 85%+ through phase."""
         # At 0.24 overall = 96% through discovery
-        progression = PhaseProgressionWorkflow.calculate_phase_progression(
-            {"discovery": 0.24}
-        )
+        progression = PhaseProgressionWorkflow.calculate_phase_progression({"discovery": 0.24})
         assert progression["ready_for_next"] is True
 
     def test_not_ready_for_next_phase(self):
         """Should show not ready when < 85% through phase."""
-        progression = PhaseProgressionWorkflow.calculate_phase_progression(
-            {"discovery": 0.10}
-        )
+        progression = PhaseProgressionWorkflow.calculate_phase_progression({"discovery": 0.10})
         assert progression["ready_for_next"] is False
 
     def test_suggest_focus_early_phase(self):
@@ -178,9 +172,7 @@ class TestSkillRecommendationWorkflow:
         code_quality_idx = next(
             (i for i, s in enumerate(prioritized) if "code_quality" in s.lower()), -1
         )
-        testing_idx = next(
-            (i for i, s in enumerate(prioritized) if "testing" in s.lower()), -1
-        )
+        testing_idx = next((i for i, s in enumerate(prioritized) if "testing" in s.lower()), -1)
         if code_quality_idx >= 0 and testing_idx >= 0:
             assert code_quality_idx < testing_idx
 
@@ -267,16 +259,12 @@ class TestMaturityTransitionWorkflow:
         scores = {"discovery": 0.99}
 
         # Transition to analysis
-        success, scores, _ = MaturityTransitionWorkflow.execute_phase_transition(
-            scores, "analysis"
-        )
+        success, scores, _ = MaturityTransitionWorkflow.execute_phase_transition(scores, "analysis")
         assert success is True
         scores["analysis"] = 0.99
 
         # Transition to design
-        success, scores, _ = MaturityTransitionWorkflow.execute_phase_transition(
-            scores, "design"
-        )
+        success, scores, _ = MaturityTransitionWorkflow.execute_phase_transition(scores, "design")
         assert success is True
         scores["design"] = 0.99
 
@@ -293,9 +281,7 @@ class TestLearningVelocityWorkflow:
 
     def test_calculate_velocity_insufficient_history(self):
         """Insufficient history should return default."""
-        velocity = LearningVelocityWorkflow.calculate_learning_velocity(
-            [{"discovery": 0.1}]
-        )
+        velocity = LearningVelocityWorkflow.calculate_learning_velocity([{"discovery": 0.1}])
         assert velocity == 0.5  # Default
 
     def test_calculate_velocity_no_progress(self):
@@ -412,9 +398,7 @@ class TestWorkflowIntegration:
     def test_progression_to_transition_to_velocity(self):
         """Full workflow: progress -> transition -> estimate time."""
         # User progresses through discovery
-        progression = PhaseProgressionWorkflow.calculate_phase_progression(
-            {"discovery": 0.99}
-        )
+        progression = PhaseProgressionWorkflow.calculate_phase_progression({"discovery": 0.99})
         assert progression["ready_for_next"] is True
 
         # Transition to analysis
@@ -456,9 +440,7 @@ class TestWorkflowIntegration:
         # Calculate progression at end of history
         # {discovery: 0.5, analysis: 0.35} = 0.425 average = analysis phase
         final_scores = {"discovery": 0.5, "analysis": 0.35}
-        progression = PhaseProgressionWorkflow.calculate_phase_progression(
-            final_scores
-        )
+        progression = PhaseProgressionWorkflow.calculate_phase_progression(final_scores)
         assert progression["current_phase"] == "analysis"
         assert progression["completion_percent"] > 40
 

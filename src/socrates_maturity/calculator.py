@@ -131,8 +131,7 @@ class MaturityCalculator:
 
     @staticmethod
     def identify_weak_categories(
-        category_scores: Dict[str, float],
-        weak_threshold: float = 0.6
+        category_scores: Dict[str, float], weak_threshold: float = 0.6
     ) -> List[str]:
         """
         Identify categories that are below weakness threshold.
@@ -152,16 +151,11 @@ class MaturityCalculator:
             ... })
             ['code_quality', 'testing']
         """
-        return [
-            category
-            for category, score in category_scores.items()
-            if score < weak_threshold
-        ]
+        return [category for category, score in category_scores.items() if score < weak_threshold]
 
     @staticmethod
     def calculate_category_improvement(
-        before: Dict[str, float],
-        after: Dict[str, float]
+        before: Dict[str, float], after: Dict[str, float]
     ) -> Dict[str, float]:
         """
         Calculate improvement in each category.

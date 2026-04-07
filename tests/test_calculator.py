@@ -16,9 +16,7 @@ class TestOverallMaturityCalculation:
 
     def test_single_phase_partial(self):
         """Single partial phase should return its score."""
-        assert (
-            MaturityCalculator.calculate_overall_maturity({"discovery": 0.5}) == 0.5
-        )
+        assert MaturityCalculator.calculate_overall_maturity({"discovery": 0.5}) == 0.5
 
     def test_two_phases_no_penalty_for_new_phase(self):
         """Starting a new phase should not decrease overall maturity.
@@ -27,18 +25,14 @@ class TestOverallMaturityCalculation:
         """
         # Starting analysis phase doesn't decrease overall maturity
         assert (
-            MaturityCalculator.calculate_overall_maturity(
-                {"discovery": 1.0, "analysis": 0.0}
-            )
+            MaturityCalculator.calculate_overall_maturity({"discovery": 1.0, "analysis": 0.0})
             == 1.0
         )
 
     def test_two_phases_both_progress(self):
         """Two phases with progress should average them."""
         # Discovery 100%, Analysis 30% = 65%
-        result = MaturityCalculator.calculate_overall_maturity(
-            {"discovery": 1.0, "analysis": 0.3}
-        )
+        result = MaturityCalculator.calculate_overall_maturity({"discovery": 1.0, "analysis": 0.3})
         assert abs(result - 0.65) < 0.001
 
     def test_three_phases_mixed_progress(self):
