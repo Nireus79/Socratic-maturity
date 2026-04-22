@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 """
 Pure, stateless workflows for maturity tracking and progression.
 

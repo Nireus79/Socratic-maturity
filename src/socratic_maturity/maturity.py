@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 """
 Maturity tracking models for phase-specific project assessment
 """
