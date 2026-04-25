@@ -50,7 +50,7 @@ from socrates_maturity.workflows import (
     WorkflowType,
 )
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 
 __all__ = [
     "MaturityCalculator",
