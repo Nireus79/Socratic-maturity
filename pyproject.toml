@@ -36,6 +36,12 @@ Repository = "https://github.com/Nireus79/socratic-maturity"
 Issues = "https://github.com/Nireus79/socratic-maturity/issues"
 
 [project.optional-dependencies]
+# Framework integrations
+openclaw = []
+langchain = ["langchain>=0.1.0"]
+langraph = ["langgraph>=0.0.1"]
+
+# Development
 dev = [
     "pytest>=7.0",
     "pytest-cov>=4.0",
