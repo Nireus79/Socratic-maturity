@@ -19,7 +19,7 @@ Key Classes:
     - MaturityEvent: Historical maturity change event
 
 Example:
-    >>> from socrates_maturity import MaturityCalculator
+    >>> from socratic_maturity import MaturityCalculator
     >>>
     >>> # Calculate overall maturity from phase scores
     >>> phase_scores = {"discovery": 1.0, "analysis": 0.3}
@@ -39,9 +39,9 @@ Example:
     >>> # weak = ["code_quality", "documentation"]
 """
 
-from socrates_maturity.calculator import MaturityCalculator
-from socrates_maturity.models import CategoryScore, MaturityEvent, PhaseMaturity
-from socrates_maturity.workflows import (
+from socratic_maturity.calculator import MaturityCalculator
+from socratic_maturity.models import CategoryScore, MaturityEvent, PhaseMaturity
+from socratic_maturity.workflows import (
     LearningVelocityWorkflow,
     MaturityTransitionWorkflow,
     PhaseProgressionWorkflow,

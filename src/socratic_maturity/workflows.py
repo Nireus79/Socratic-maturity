@@ -11,7 +11,7 @@ from dataclasses import dataclass, field
 from enum import Enum
 from typing import Any, Dict, List, Optional, Tuple
 
-from socrates_maturity.calculator import PHASES, MaturityCalculator
+from socratic_maturity.calculator import PHASES, MaturityCalculator
 
 
 class WorkflowType(Enum):
