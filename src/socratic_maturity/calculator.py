@@ -6,7 +6,7 @@ Maturity calculation engine.
 Pure, side-effect-free calculation of project maturity based on phase scores.
 """
 
-from typing import Dict, List
+from typing import Any, Dict, List, Optional
 
 PHASES = ["discovery", "analysis", "design", "implementation"]
 PHASE_RANGES = {
@@ -16,9 +16,76 @@ PHASE_RANGES = {
     "implementation": (0.75, 1.0),
 }
 
+# Project type phase categories
+PROJECT_TYPE_CATEGORIES = {
+    "software": {
+        "discovery": ["requirements", "tech_stack", "stakeholders"],
+        "analysis": ["scope", "dependencies", "risks"],
+        "design": ["architecture", "database", "api_design"],
+        "implementation": ["coding", "testing", "documentation"],
+    },
+    "business": {
+        "discovery": ["market_research", "competitors", "customer_needs"],
+        "analysis": ["business_model", "financial_plan", "resources"],
+        "design": ["strategy", "processes", "branding"],
+        "implementation": ["launch", "marketing", "operations"],
+    },
+    "creative": {
+        "discovery": ["inspiration", "concept", "audience"],
+        "analysis": ["feedback", "iterations", "refinement"],
+        "design": ["visual_design", "layout", "style"],
+        "implementation": ["production", "delivery", "promotion"],
+    },
+    "research": {
+        "discovery": ["literature_review", "hypothesis", "methodology"],
+        "analysis": ["data_collection", "analysis", "validation"],
+        "design": ["experiments", "controls", "measurements"],
+        "implementation": ["results", "publication", "dissemination"],
+    },
+    "marketing": {
+        "discovery": ["audience_research", "market_analysis", "trends"],
+        "analysis": ["campaign_planning", "budget", "channels"],
+        "design": ["content_creation", "messaging", "creative"],
+        "implementation": ["execution", "analytics", "optimization"],
+    },
+    "educational": {
+        "discovery": ["learning_objectives", "content_audit", "audience"],
+        "analysis": ["curriculum_design", "assessment_plan", "resources"],
+        "design": ["course_structure", "materials", "interactions"],
+        "implementation": ["delivery", "evaluation", "iteration"],
+    },
+}
+
+# Thresholds
+READY_THRESHOLD = 20.0
+COMPLETE_THRESHOLD = 100.0
+WARNING_THRESHOLD = 10.0
+
 
 class MaturityCalculator:
-    """Pure, stateless maturity calculator."""
+    """Maturity calculator with support for project types and phase categories."""
+
+    def __init__(self, project_type: str = "software", claude_client: Optional[Any] = None):
+        """
+        Initialize MaturityCalculator with project type and optional Claude client.
+
+        Args:
+            project_type: Type of project (software, business, creative, research, marketing, educational)
+            claude_client: Optional Claude API client for intelligent categorization
+        """
+        self.project_type = project_type.lower()
+        self.claude_client = claude_client
+
+        # Set phase categories based on project type
+        self.phase_categories = PROJECT_TYPE_CATEGORIES.get(
+            self.project_type,
+            PROJECT_TYPE_CATEGORIES["software"]
+        )
+
+        # Set thresholds
+        self.READY_THRESHOLD = READY_THRESHOLD
+        self.COMPLETE_THRESHOLD = COMPLETE_THRESHOLD
+        self.WARNING_THRESHOLD = WARNING_THRESHOLD
 
     @staticmethod
     def calculate_overall_maturity(phase_scores: Dict[str, float]) -> float:
@@ -181,3 +248,16 @@ class MaturityCalculator:
             if category in after:
                 improvements[category] = after[category] - before[category]
         return improvements
+
+    # Instance methods for compatibility with project-based usage
+    def set_project_type(self, project_type: str) -> None:
+        """Change project type and update phase categories."""
+        self.project_type = project_type.lower()
+        self.phase_categories = PROJECT_TYPE_CATEGORIES.get(
+            self.project_type,
+            PROJECT_TYPE_CATEGORIES["software"]
+        )
+
+    def set_claude_client(self, claude_client: Any) -> None:
+        """Set Claude client for intelligent categorization."""
+        self.claude_client = claude_client
