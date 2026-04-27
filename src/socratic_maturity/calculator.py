@@ -70,7 +70,8 @@ class MaturityCalculator:
         Initialize MaturityCalculator with project type and optional Claude client.
 
         Args:
-            project_type: Type of project (software, business, creative, research, marketing, educational)
+            project_type: Project type (software, business, creative, research, marketing,
+                educational)
             claude_client: Optional Claude API client for intelligent categorization
         """
         self.project_type = project_type.lower()
