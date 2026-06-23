@@ -6,7 +6,7 @@ Data models for maturity tracking system.
 Provides dataclasses for tracking project maturity across phases and categories.
 """
 
-from dataclasses import dataclass, field, asdict
+from dataclasses import asdict, dataclass, field
 from datetime import datetime
 from typing import Any, Dict, List
 
