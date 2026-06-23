@@ -7,7 +7,7 @@ These workflows handle maturity state transitions without infrastructure depende
 All workflows are deterministic and side-effect-free.
 """
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, asdict
 from enum import Enum
 from typing import Any, Dict, List, Optional, Tuple
 
@@ -25,7 +25,16 @@ class WorkflowType(Enum):
 
 @dataclass
 class WorkflowState:
-    """State of a maturity workflow execution."""
+    @staticmethod
+    def from_dict(data: dict) -> "WorkflowState":
+        """Deserialize from dictionary."""
+        return WorkflowState(**data)
+
+    def to_dict(self) -> dict:
+        """Serialize to dictionary."""
+        from dataclasses import asdict
+        return asdict(self)
+
 
     workflow_type: WorkflowType
     phase_scores: Dict[str, float]

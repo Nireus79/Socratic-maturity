@@ -6,7 +6,7 @@ Data models for maturity tracking system.
 Provides dataclasses for tracking project maturity across phases and categories.
 """
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, asdict
 from datetime import datetime
 from typing import Any, Dict, List
 
@@ -34,9 +34,27 @@ class CategoryScore:
         return self.current_score >= self.target_score
 
 
-@dataclass
+    @staticmethod
+    def from_dict(data: dict) -> "CategoryScore":
+        """Deserialize from dictionary."""
+        return CategoryScore(**data)
+
+    def to_dict(self) -> dict:
+        """Serialize to dictionary."""
+        from dataclasses import asdict
+        return asdict(self)
+
 class PhaseMaturity:
-    """Complete maturity information for a phase."""
+    @staticmethod
+    def from_dict(data: dict) -> "PhaseMaturity":
+        """Deserialize from dictionary."""
+        return PhaseMaturity(**data)
+
+    def to_dict(self) -> dict:
+        """Serialize to dictionary."""
+        from dataclasses import asdict
+        return asdict(self)
+
 
     phase: str
     overall_score: float  # 0-100%
@@ -51,7 +69,16 @@ class PhaseMaturity:
 
 @dataclass
 class MaturityEvent:
-    """Event in maturity history."""
+    @staticmethod
+    def from_dict(data: dict) -> "MaturityEvent":
+        """Deserialize from dictionary."""
+        return MaturityEvent(**data)
+
+    def to_dict(self) -> dict:
+        """Serialize to dictionary."""
+        from dataclasses import asdict
+        return asdict(self)
+
 
     timestamp: datetime
     phase: str
