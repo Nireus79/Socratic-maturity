@@ -33,7 +33,6 @@ class CategoryScore:
         """Check if category has reached target."""
         return self.current_score >= self.target_score
 
-
     @staticmethod
     def from_dict(data: dict) -> "CategoryScore":
         """Deserialize from dictionary."""
@@ -41,20 +40,12 @@ class CategoryScore:
 
     def to_dict(self) -> dict:
         """Serialize to dictionary."""
-        from dataclasses import asdict
         return asdict(self)
 
+
+@dataclass
 class PhaseMaturity:
-    @staticmethod
-    def from_dict(data: dict) -> "PhaseMaturity":
-        """Deserialize from dictionary."""
-        return PhaseMaturity(**data)
-
-    def to_dict(self) -> dict:
-        """Serialize to dictionary."""
-        from dataclasses import asdict
-        return asdict(self)
-
+    """Complete maturity information for a phase."""
 
     phase: str
     overall_score: float  # 0-100%
@@ -66,19 +57,19 @@ class PhaseMaturity:
     is_ready_to_advance: bool
     warnings: List[str] = field(default_factory=list)
 
-
-@dataclass
-class MaturityEvent:
     @staticmethod
-    def from_dict(data: dict) -> "MaturityEvent":
+    def from_dict(data: dict) -> "PhaseMaturity":
         """Deserialize from dictionary."""
-        return MaturityEvent(**data)
+        return PhaseMaturity(**data)
 
     def to_dict(self) -> dict:
         """Serialize to dictionary."""
-        from dataclasses import asdict
         return asdict(self)
 
+
+@dataclass
+class MaturityEvent:
+    """Event in maturity history."""
 
     timestamp: datetime
     phase: str
@@ -87,3 +78,12 @@ class MaturityEvent:
     delta: float
     event_type: str  # 'question_answered', 'spec_added', 'phase_advanced', etc.
     details: Dict[str, Any] = field(default_factory=dict)
+
+    @staticmethod
+    def from_dict(data: dict) -> "MaturityEvent":
+        """Deserialize from dictionary."""
+        return MaturityEvent(**data)
+
+    def to_dict(self) -> dict:
+        """Serialize to dictionary."""
+        return asdict(self)
