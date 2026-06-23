@@ -79,8 +79,7 @@ class MaturityCalculator:
 
         # Set phase categories based on project type
         self.phase_categories = PROJECT_TYPE_CATEGORIES.get(
-            self.project_type,
-            PROJECT_TYPE_CATEGORIES["software"]
+            self.project_type, PROJECT_TYPE_CATEGORIES["software"]
         )
 
         # Set thresholds
@@ -255,8 +254,7 @@ class MaturityCalculator:
         """Change project type and update phase categories."""
         self.project_type = project_type.lower()
         self.phase_categories = PROJECT_TYPE_CATEGORIES.get(
-            self.project_type,
-            PROJECT_TYPE_CATEGORIES["software"]
+            self.project_type, PROJECT_TYPE_CATEGORIES["software"]
         )
 
     def set_claude_client(self, claude_client: Any) -> None:
