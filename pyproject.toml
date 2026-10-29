@@ -10,7 +10,7 @@ readme = "README.md"
 requires-python = ">=3.9"
 license = "MIT"
 authors = [
-    {name = "Socrates AI", email = "info@socrates.ai"}
+    {name = "Efthimios Angelopoulos", email = "Hermes_creative@proton.me"}
 ]
 keywords = [
     "maturity",
