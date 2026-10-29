@@ -41,7 +41,7 @@ The maturity calculation uses a unique algorithm that:
 - Fully deterministic
 - Can be used standalone or composed with other libraries
 
-### Comprehensive Category Tracking
+### Category Tracking
 
 - Per-phase category scores (0.0-1.0)
 - Weak category identification (< 0.6)
@@ -315,9 +315,9 @@ Contributions welcome! Please ensure:
 
 ---
 
-## Part of Socrates AI Ecosystem
+## Origin
 
-This package is a component of [**Socrates AI**](https://github.com/Nireus79/Socrates), a production-ready platform for building intelligent multi-agent systems with constitutional governance.
+This package comes from the [Socrates](https://github.com/Nireus79/Socrates) research prototype, which is not maintained as a product. Status: alpha. Written by Efthimios Angelopoulos with AI coding assistants (Claude Code); I design, review and test it. Contact: Hermes_creative@proton.me.
 
 ### Use This Package Standalone:
 ```bash
